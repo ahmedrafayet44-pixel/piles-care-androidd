@@ -168,7 +168,7 @@ fun HomeHeader() {
         Text(
             "Your daily health companion",
             color = Muted,
-            fontSifontSizesp
+            fontSize = 13.sp
         )
     }
 }
