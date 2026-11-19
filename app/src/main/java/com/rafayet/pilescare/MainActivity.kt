@@ -68,64 +68,88 @@ fun PilesCareApp() {
                 }
             }
         ) { padding ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .verticalScroll(rememberScrollState())
-                    .padding(18.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                if (selectedTab == 0) {
-                    HomeHeader()
-                    WaterCard(water) {
-                        water = (water + 250).coerceAtMost(5000)
+
+            if (selectedTab == 0) {
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                ) {
+                    ModernHomeScreen(
+                        water = water,
+                        onAddWater = {
+                            water = (water + 250).coerceAtMost(5000)
+                        },
+                        stool = stool,
+                        onSelectStool = { stool = it },
+                        burning = burning,
+                        onBurningChange = { burning = it }
+                    )
+                }
+
+            } else {
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                        .verticalScroll(rememberScrollState())
+                        .padding(18.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+
+                    if (selectedTab == 1) {
+                        Text(
+                            "Daily Tracking / দৈনিক ট্র্যাকিং",
+                            color = TextWhite,
+                            fontSize = 23.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        WaterCard(water) {
+                            water = (water + 250).coerceAtMost(5000)
+                        }
+
+                        StoolCard(stool) { stool = it }
+                        SymptomCard(burning) { burning = it }
+
+                    } else {
+                        Text(
+                            "Care Guide / যত্নের পরামর্শ",
+                            color = TextWhite,
+                            fontSize = 23.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        InfoCard(
+                            "পানি পান করুন",
+                            "Drink enough water throughout the day."
+                        )
+
+                        InfoCard(
+                            "আঁশযুক্ত খাবার খান",
+                            "Try vegetables, fruits and other fiber-rich foods."
+                        )
+
+                        InfoCard(
+                            "চাপ দিয়ে পায়খানা করবেন না",
+                            "Avoid straining and sitting too long on the toilet."
+                        )
+
+                        InfoCard(
+                            "কুসুম গরম পানিতে বসুন",
+                            "A warm sitz bath may help relieve discomfort."
+                        )
+
+                        Disclaimer()
                     }
-                    FoodCard()
-                    StoolCard(stool) { stool = it }
-                    SymptomCard(burning) { burning = it }
-                    Disclaimer()
-                } else if (selectedTab == 1) {
-                    Text(
-                        "Daily Tracking / দৈনিক ট্র্যাকিং",
-                        color = TextWhite,
-                        fontSize = 23.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    WaterCard(water) {
-                        water = (water + 250).coerceAtMost(5000)
-                    }
-                    StoolCard(stool) { stool = it }
-                    SymptomCard(burning) { burning = it }
-                } else {
-                    Text(
-                        "Care Guide / যত্নের পরামর্শ",
-                        color = TextWhite,
-                        fontSize = 23.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    InfoCard(
-                        "পানি পান করুন",
-                        "Drink enough water throughout the day."
-                    )
-                    InfoCard(
-                        "আঁশযুক্ত খাবার খান",
-                        "Try vegetables, fruits and other fiber-rich foods."
-                    )
-                    InfoCard(
-                        "চাপ দিয়ে পায়খানা করবেন না",
-                        "Avoid straining and sitting too long on the toilet."
-                    )
-                    InfoCard(
-                        "কুসুম গরম পানিতে বসুন",
-                        "A warm sitz bath may help relieve discomfort."
-                    )
-                    Disclaimer()
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun HomeHeader() {
@@ -144,7 +168,7 @@ fun HomeHeader() {
         Text(
             "Your daily health companion",
             color = Muted,
-            fontSize = 13.sp
+            fontSifontSizesp
         )
     }
 }
